@@ -1,0 +1,1435 @@
+<!doctype html>
+
+<html lang="ru">
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+  <link type="text/css" rel="stylesheet" href="css/carta_osm.css"  media="screen,projection"/>
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8">
+  <title>Карта осмотра 17y</title>
+  <link rel="icon" type="image/x-icon" href="img/logo-langing.ico">
+</head>
+
+<body>
+<!-- user_bar -->
+<ul id='user' class='dropdown-content'>
+  <li><a href="#!"><i class="material-icons">email</i><span class=" right new badge green" data-badge-caption="4"></span>Уведомления</a></li>
+  <li><a href="#!"><i class="material-icons">exit_to_app</i>Выйти</a></li>
+</ul>
+<ul id='user-mobile' class='dropdown-content'>
+  <li><a href="#!"><span class="right new badge green" data-badge-caption="4"></span>Уведомления</a></li>
+  <li><a href="#!">Выйти</a></li>
+</ul>
+
+<!-- lech_bar -->
+<ul id='lech' class='dropdown-content'>
+  <li><a href="#!">Карта ребенка</a></li>
+  <li><a href="#!">Поиск карты обследования</a></li>
+  <li><a href="#!">Поиск ребенка</a></li>
+</ul>
+<ul id='lech-mobile' class='dropdown-content'>
+    <li><a href="#!">Карта ребенка</a></li>
+    <li><a href="#!">Поиск карты обследования</a></li>
+    <li><a href="#!">Поиск ребенка</a></li>
+</ul>
+
+<nav class="green" style="margin-bottom: 12px">
+    <div class="nav-wrapper">
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <a href="">
+            <div class="alink_logo tooltipped brand-logo right" data-tooltip="Подсистема мониторинга проведения диспансеризации<br> детей-сирот и детей, находящихся в трудной жизненной ситуации">
+                    <span>ЕГИСЗ</span>
+                    <img class="right logo-egisz" src="img/logo-langing.png">
+            </div>
+        </a>
+        <ul class="left hide-on-med-and-down">
+        <li><a class="dropdown-trigger" href="#!" data-target="user"><i class="material-icons left">account_box</i>ЦЕНТР Т.П. <i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="lech">ОБСЛЕДОВАНИЕ<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a href="">МОНИТОРИНГ</a></li>
+        <li><a href=""><i class="material-icons tooltipped" data-tooltip="АДМИНИСТРИРОВАНИЕ">settings</i></a></li>
+        <li><a href="https://portal.egisz.rosminzdrav.ru/forum/" class="tooltipped" data-tooltip="ФОРУМ" target="_blank"><i class="material-icons small">forum</i></a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul class="sidenav" id="mobile-nav">
+    <li><a class="dropdown-trigger" href="#!" data-target="user-mobile">ЦЕНТР Т.П.<i class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a class="dropdown-trigger" href="#!" data-target="vvod-mobile">ВВОД ДАННЫХ<i class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a class="dropdown-trigger" href="#!" data-target="lech-mobile">ОБСЛЕДОВАНИЕ<i class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a href="">МОНИТОРИНГ</a></li>
+    <li><a href="">АДМИНИСТРИРОВАНИЕ</a></li>
+    <li><a href="https://portal.egisz.rosminzdrav.ru/forum/" target="_blank">ФОРУМ</a></li>
+</ul>
+<!-- МОДАЛЬНЫЕ ОКНА -->  
+<!-- Окно добавления файла -->
+<div id="addfile" class="modal">
+  <div class="modal-content">
+        <h6>Загрузка подтверждающего документа</h6>
+        <hr>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select>
+                            <option selected value="1">Эпикриз</option>
+                            <option value="2">Справка</option>
+                        </select>
+                        <label>Тип документа</label>
+                    </div>
+                </div>
+                <div class="row" action="#">
+                    <div class="col s12 file-field input-field">
+                        <div class="btn">
+                            <span>Выбрать</span>
+                            <input type="file" multiple>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text" placeholder="Выберите файл">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Отмена</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Загрузить</a>
+    </div>
+</div>
+
+<!-- Окно экспорта -->
+<div id="export" class="modal">
+  <div class="modal-content">
+        <h6>Экспорт талона</h6>
+        <hr>
+        <div class="row">
+            <div class="input-field col s12">
+                <select multiple>
+                <option selected value="1">xlsx</option>
+                <option value="1">xls</option>
+                <option value="2">xml</option>
+                </select>
+                <label>Формат для скачивания</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Отмена</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Скачать</a>
+    </div>
+</div>
+
+<!-- Окно добавления диагноза до осмотра -->
+<div id="diagnosis_before" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h6>Добавить диагноз</h6>
+        <hr>
+        <div class="row" style="margin-bottom: 0px;">
+            <div style="margin-top: 30px" class="col s12 l3">
+                <label>
+                    <input type="checkbox" />
+                    <span>Практически здоров</span>
+                </label> 
+            </div>
+            <div class="col input-field s12 l9">
+                    <input required placeholder="Начните вводить диагноз" id="diag" type="text" class="validate">
+                    <label for="diag">Диагноз <span class="red-text">*</span></label>
+                    <span class="helper-text" data-error="Укажите диагноз"></span>
+            </div>
+        </div>
+        <div class="row">
+                <div style="margin-top: 0px" class="col s12 l12">
+                        <label>
+                            <input type="checkbox" />
+                            <span>Установлено диспансерное наблюдение</span>
+                        </label> 
+                </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Отмена</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Сохранить</a>
+    </div>
+    
+</div>
+
+<!-- Окно добавления диагноза после осмотра -->
+<div id="diagnosis_after" class="modal modal-fixed-footer">
+        <div class="modal-content">
+                <h6>Добавить диагноз</h6>
+                <hr>
+                <div class="row" style="margin-bottom: 0px;">
+                    <div style="margin-top: 30px" class="col s12 l3">
+                        <label>
+                            <input type="checkbox" />
+                            <span>Практически здоров</span>
+                        </label> 
+                    </div>
+                    <div class="col input-field s12 l9">
+                            <input required placeholder="Начните вводить диагноз" id="diag" type="text" class="validate">
+                            <label for="diag">Диагноз <span class="red-text">*</span></label>
+                            <span class="helper-text" data-error="Укажите диагноз"></span>
+                    </div>
+                </div>
+                <div class="row">
+                        <div style="margin-top: 0px" class="col s12 l4">
+                                <label>
+                                    <input type="checkbox" />
+                                    <span>Диагноз установлен впервые</span>
+                                </label> 
+                        </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                    <div class="row" style="margin-bottom: 0px; margin-top: 30px">
+                    <h6 style="margin-top: -40px" class="col">Диспансерное наблюдение</h6>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 l3">
+                            <label>
+                                <input checked class="with-gap" name="group__2" type="radio" />
+                                <span>не установлено</span>
+                            </label>
+                        </div>
+                        <div class="col s12 l3">
+                                <label>
+                                    <input class="with-gap" name="group__2" type="radio" />
+                                    <span>установлено ранее</span>
+                                </label>
+                        </div>
+                        <div class="col s12 l3">
+                                <label>
+                                    <input class="with-gap" name="group__2" type="radio" />
+                                    <span>установлено впервые</span>
+                                </label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 0px">
+                    <h6 class="col">Лечение назначено <span class="red-text">*</span></h6>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 l6">
+                            <select>
+                                <option selected value="1">Нет</option>
+                                <option value="2">Значение 2</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                    <div class="row" style="margin-bottom: 0px">
+                    <h6 class="col">Дополнительные консультации и исследования назначены <span class="red-text">*</span></h6>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 l6">
+                            <select>
+                                <option selected value="1">Нет</option>
+                                <option value="2">Да</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 0px">
+                    <h6 class="col">Дополнительные консультации и исследования выполнены <span class="red-text">*</span></h6>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 l6">
+                            <select>
+                                <option selected value="1">Нет</option>
+                                <option value="2">Да</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row" style="margin-bottom: 0px">
+                <h6 class="col">Медицинская реабилитация/санаторно-курортное лечение были назначены <span class="red-text">*</span></h6>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 l6">
+                        <select>
+                            <option selected value="1">Нет</option>
+                            <option value="2">Значение 2</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row" style="margin-bottom: 0px">
+                <h6 class="col">Рекомендации <span class="red-text">*</span></h6>
+                </div>
+                <div class="row">
+                        <div class="input-field col s12">
+                            <textarea   id="recomendation" class="materialize-textarea" data-length="4000"></textarea>
+                            <label for="recomendation">Рекомендации по диспансерному наблюдению, лечению, медицинской реабилитации и санаторно курортному лечению...</label>
+                        </div>
+                </div>
+        </div>        
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Отмена</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Сохранить</a>
+        </div>
+</div>
+
+<!-- Окно добавления исследования -->
+<div id="add_research" class="modal">
+        <div class="modal-content">
+                <h6>Добавить исследование</h6>
+                <hr>
+                <div class="row">
+                    <div id="time" class="input-field col s12 l3 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: не ранее даты<br> рождения ребенка и не более текущей даты">
+                            <input required id="date_issl" type="text" class="datepicker validate">
+                            <label for="date_issl">Дата<span class="red-text">*</span></label>
+                            <span class="helper-text" data-error="Выберите дату"></span>
+                    </div>
+                    <div class="col input-field s12 l9">
+                            <input id="diag" type="text">
+                            <label for="diag">Наименование <span class="red-text">*</span></label>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="input-field col s12">
+                                <textarea   id="result" class="materialize-textarea" data-length="4000"></textarea>
+                                <label for="result">Результат <span class="red-text">*</span></label>
+                        </div>
+                </div> 
+        </div>               
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Отмена</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Сохранить</a>
+        </div>
+</div>
+
+
+<!-- Окно создания метки -->
+<div id="metka" class="modal">
+    <div class="modal-content">
+        <h6>Создание метки</h6>
+        <hr>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="metka" class="materialize-textarea"></textarea>
+                <label for="metka">Описание метки</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Отмена</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Сохранить</a>
+    </div>
+</div>
+
+<!-- Окно редактирования метки -->
+<div id="red_metka" class="modal">
+    <div class="modal-content">
+        <h6>Редактирование метки</h6>
+        <hr>
+        <div class="row">
+            <div class="input-field col s12">
+                <textarea id="metka" class="materialize-textarea">Текст метки</textarea>
+                
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Отмена</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">Сохранить</a>
+    </div>
+</div>
+
+<!-- Окно история -->
+<div id="history" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h6>История изменений в карте</h6>
+        <hr>
+        <ul class="tabs tabs-fixed-width tab-demo">
+            <li class="tab"><a class="active" href="#history_tab">Изменения в сведениях карты</a></li>
+            <li class="tab"><a class="active" href="#history_stat">Изменения статуса карты</a></li>
+        </ul>
+        <div class="row" id="history_tab">             
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header">История изменения карты</div>
+                        <div class="collapsible-body">
+                                <p>15.02.2019, пользователь Иванов И.И. создал карту со статусом "Заполняется"</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Общее</div>
+                        <div class="collapsible-body">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        15.02.2019, пользователь Иванов И.И. сохранил раздел
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        15.02.2019, пользователь Иванов И.И. изменил "Серия полиса" с "ИА-1234" на "ИТ-1234"
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        15.02.2019, пользователь Иванов И.И. изменил "Образовательное учреждение" с "СОШ№ 35" на "СОШ№ 36"
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Оценка развития</div>
+                        <div class="collapsible-body"><span>Изменений в разделе не было</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Состояние здоровья</div>
+                        <div class="collapsible-body">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        15.02.2019, пользователь Иванов И.И. сохранил раздел
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Исследования</div>
+                        <div class="collapsible-body"><span>Изменений в разделе не было</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Вакцинации</div>
+                        <div class="collapsible-body"><span>Изменений в разделе не было</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">Заключение</div>
+                        <div class="collapsible-body"><span>Изменений в разделе не было</span></div>
+                    </li>
+                </ul>
+        </div>
+        <div class="row" id="history_stat">     
+            <div class="col s12">       
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            15.02.2019, пользователь Иванов И.И. создал карту со статусом "Заполняется"
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            15.02.2019, пользователь Иванов И.И. изменил статус карты с "Заполняется" на "Не проведена"
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            15.02.2019, пользователь Иванов И.И. изменил статус карты с "Заполняется" на "Выполнено"
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div> 
+        </div>
+        
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">ОК</a>
+    </div>
+</div>
+
+<!-- Комментарии -->
+<div id="ticket_comment" class="modal modal-fixed-footer">
+   <div class="modal-content">
+        <h6>Комментарии</h6>
+        <hr>
+        <div class="row">
+            <form class="col s12">
+                <table class="responsive-table">
+                  <thead>
+                     <tr>
+                        <th>Этап</th>
+                        <th>Время</th>
+                        <th>Пользователь</th>
+                        <th>Комментарий</th>
+                     </tr>
+                  </thead>
+
+                  <tbody>
+                     <tr>
+                        <td>2</td>
+                        <td>21.01.2018 11:55</td>
+                        <td>Петров П.П.</td>
+                        <td>Большой комментарий, сохраненный ранее</td>
+                     </tr>
+                     <tr>
+                        <td>1</td>
+                        <td>21.01.2018 09:55</td>
+                        <td>Иванов И.И.</td>
+                        <td>Большой комментарий, сохраненный ранее</td>
+                     </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="modal-footer">
+             <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">ОК</a>
+        </div>
+    </div>
+</div>
+
+<!-- Дополнительная информация -->
+
+ <!-- НАПОЛНЕНИЕ-->
+<div class="row content container">
+    <div class="row">
+        <div id="main-info" class="z-depth-2 vmp_content col push-card l9 s12" style="padding:0">
+            <h5 style="text-align: center;">Карта №141902.000000.000229.002</h5>
+            <a href="#history" class="modal-trigger right tooltipped" style="margin-top:-40px; margin-right:45px;" data-tooltip="История изменений"><i class="material-icons small">history</i></a>
+            <a id="hide-right-info" class="right tooltipped" href="#!" style="margin-top:-40px; margin-right:10px;" data-tooltip="Дополнительная информация"><i class="material-icons small">info_outline</i></a>
+            <ul class="tabs tabs-fixed-width tab-demo" style="margin-bottom: 20px">
+                <li class="tab"><a class="active" href="#0_etap">ОБЩЕЕ</a></li>
+                <li class="tab"><a href="#1_etap">ОЦЕНКА РАЗВИТИЯ</a></li>
+                <li class="tab"><a href="#2_etap">СОСТОЯНИЕ ЗДОРОВЬЯ</a></li>
+                <li class="tab"><a href="#3_etap">ИССЛЕДОВАНИЯ</a></li>
+                <li class="tab"><a href="#5_etap">ЗАКЛЮЧЕНИЕ</a></li>
+            </ul>
+            <div id="0_etap" class="col s12">
+                <form class="col s12">
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Общая информация</h6>
+                        <div class="row" style="margin-bottom: 0px">
+                            <div id="time" class="input-field col s12 l4 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: год создания карты<br> или год создания карты - 1, но не более текущей даты">
+                                <input required id="date_obsl" type="text" class="datepicker validate">
+                                <label for="date_obsl">Дата начала обследования <span class="red-text">*</span></label>
+                                <span class="helper-text" data-error="Выберите дату"></span>
+                            </div>
+                            <div class="input-field col s12 l8">
+                                    <input placeholder="Укажите регион либо город" class="validate" required id="address" type="text">
+                                    <label for="address">Место постоянного пребывания <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Укажите место постоянного пребывания"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Информация ОМС</h6>
+                        <div class="row" style="margin-bottom: 0px">
+                            <div class="input-field col s12">
+                                <input placeholder="Начните вводить наименование" required id="isur_comp" type="text" class="validate">
+                                <label for="isur_comp">Страховая медицинская организация <span class="red-text">*</span></label>
+                                <span class="helper-text" data-error="Выберите страховую медицинскую организацию"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: -50px;">
+                            <div class="input-field col l4 s12">
+                                <input required id="ser_pol" type="text" class="validate">
+                                <label for="ser_pol">Серия полиса <span class="red-text">*</span></label>
+                                <span class="helper-text" data-error="Укажите серию"></span>
+                            </div>
+                            <div class="input-field col l8 s12">
+                                <input required id="num_pol" type="text" class="validate">
+                                <label for="num_pol">Номер полиса <span class="red-text">*</span></label>
+                                <span class="helper-text" data-error="Укажите номер"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="section" style="margin-top: 0px">
+                        <h6 class="section_name" style="font-weight: bold">Медицинская организация для получения <span class="tooltipped"data-position="bottom" data-tooltip="первая медико-санитарная помощь" style="cursor: pointer">ПМСП</span></h6>
+                        <div class="row">
+                                <div class="input-field col s12" style="margin-bottom: -25px">
+                                    <input placeholder="Начните вводить наименование" class="validate" required id="mo_organization" type="text">
+                                    <label for="mo_organization">Наименование организации <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Выберите медицинскую организацию"></span>
+                                </div>            
+                        </div>
+                        <div class="row" style="margin-bottom: 0px">
+                            <div class="col s12">
+                                    <ul class="collapsible">
+                                            <li>  
+                                            <div class="collapsible-header" ><i class="material-icons" style="margin-left: 0%">dehaze</i>Подробнее</div>
+                                            <div class="collapsible-body">
+                                                <p>Подробная информация о медицинской организации</p>
+                                            </div>
+                                            </li>
+                                    </ul> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Образование</h6>
+                        <div class="row">
+                                <div class="input-field col s12" style="margin-bottom: -25px">
+                                    <input placeholder="Начните вводить наименование" class="validate" required id="education_org" type="text">
+                                    <label for="education_org">Образовательное учреждение <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Выберите образовательное учреждение"></span>
+                                </div>                
+                        </div>
+                        <div class="row" style="margin-bottom: 0px">
+                                <div class="col s12">
+                                    <ul class="collapsible">
+                                            <li>  
+                                            <div class="collapsible-header"><i class="material-icons" style="margin-left: 0%">dehaze</i>Подробнее</div>
+                                            <div class="collapsible-body">
+                                                <p>Подробная информация об образовательном учреждении</p>
+                                            </div>
+                                            </li>
+                                    </ul> 
+                                </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                                <a onclick="M.toast({html: 'Раздел сохранён'})" class="waves-effect waves-light btn-small green">Сохранить</a>
+                                <a href="#export" class="modal-trigger waves-effect waves-light btn-small green">Экспорт</a>
+                                <a href="##" class="modal-trigger waves-effect waves-light btn-small green">Заблокировать</a>
+                        </div>
+                </form>
+            </div>
+            <div id="1_etap" class="col s12">
+                <form class="col s12">
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Оценка физического развития для детей 0-4 лет</h6>
+                        <div class="row" style="margin-bottom: 0px"> 
+                            <div class="col input-field s12 l3">
+                                <input required id="ves" type="text" class="validate">
+                                <label for="ves">Вес, кг <span class="red-text">*</span></label>
+                                <span class="helper-text" data-error="Укажите вес"></span>
+                            </div>
+                            <div class="col input-field s12 l3">
+                                    <input required id="rost" type="text" class="validate">
+                                    <label for="rost">Рост, см <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Укажите рост"></span>
+                            </div>
+                            <div class="col input-field s12 l3">
+                                    <input required id="ocr" type="text" class="validate">
+                                    <label for="ocr">Окружность головы, см <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Укажите длинну окружности"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Нарушения в развитии</h6>
+                        <div class="row" style="margin-bottom: 0px;">
+                            <div class="col s12 l1">
+                                <p class="margin_switcher">Вес</p>
+                            </div>
+                            <div class="col s12 l4">
+                                    <label>
+                                        <input type="checkbox" />
+                                        <span>дефицит масы тела</span>
+                                    </label> 
+                            </div>
+                            <div class="col s12 l4">
+                                    <label>
+                                        <input type="checkbox" />
+                                        <span>избыток массы тела</span>
+                                    </label> 
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s12 l1">
+                                    <p class="margin_switcher">Рост</p>
+                                </div>
+                                <div class="col s12 l4">
+                                        <label>
+                                            <input type="checkbox" />
+                                            <span>низкий рост</span>
+                                        </label> 
+                                </div>
+                                <div class="col s12 l3">
+                                        <label>
+                                            <input type="checkbox" />
+                                            <span>высокий рост</span>
+                                        </label> 
+                                </div>
+                        </div>
+                    </div>
+                    <!--Для детей 0-4 лет-->
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Оценка психологического развития для детей 0-4 лет</h6>
+                        <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s12 l7">
+                                    <p >Познавательная функция (возраст развития) <span class="red-text">*</span></label></p>
+                                </div>
+                                <div class=" col s12 l1">
+                                <input style="margin-bottom: 0px; margin-top: 5px" type="text" class="validate">
+                                </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0px;" >
+                                <div class="col s12 l7">
+                                    <p >Моторная функция (возраст развития) <span class="red-text">*</span></label></p>
+                                </div>
+                                <div class=" col s12 l1">
+                                <input style="margin-bottom: 0px; margin-top: 5px" type="text" class="validate ">
+                                </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s12 l7">
+                                    <p >Эмоциональная и социальная (контакт с окружающим миром) функции (возраст развития) <span class="red-text">*</span></label></p>
+                                </div>
+                                <div class=" col s12 l1">
+                                <input style="margin-bottom: 0px; margin-top: 10px" type="text" class="validate ">
+                                </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s12 l7">
+                                    <p >Предречевое и речевое развитие (возраст развития) <span class="red-text">*</span></label></p>
+                                </div>
+                                <div class=" col s12 l1">
+                                <input style="margin-bottom: 0px; margin-top: 5px" type="text" class="validate ">
+                                </div>
+                        </div>
+                    </div>
+                    
+                    <!--Для детей 5-17 лет-->
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Оценка психологического развития для детей 5-17 лет</h6>
+                        <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s12 l4">
+                                    <p class="margin_switcher">Психомоторная сфера <span class="red-text">*</span></label></p>
+                                </div>
+                                <div class=" col s12 l2">
+                                        <label>
+                                        <input checked class="with-gap" name="group1" type="radio" />
+                                        <span>норма</span>
+                                        </label>
+                                </div>
+                                <div class=" col s12 l1">
+                                        <label>
+                                        <input class="with-gap" name="group1" type="radio" />
+                                        <span>отклонение</span>
+                                        </label>
+                                </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0px;" >
+                                <div class="col s12 l4">
+                                    <p class="margin_switcher">Интеллект <span class="red-text">*</span></label></p>
+                                </div>
+                                
+                                    <div class="col s12 l2">
+                                          <label>
+                                            <input checked class="with-gap" name="group2" type="radio" />
+                                            <span>норма</span>
+                                          </label>
+                                    </div>
+                                    <div class=" col s12 l1">
+                                          <label>
+                                            <input class="with-gap" name="group2" type="radio" />
+                                            <span>отклонение</span>
+                                          </label> 
+                                    </div>
+                                
+                        </div>
+                        <div class="row" style="margin-bottom: 0px;">
+                                <div class="col s12 l4">
+                                    <p class="margin_switcher">Эмоционально вегеативная сфера <span class="red-text">*</span></label></p>
+                                </div>
+                                <div class=" col s12 l2">
+                                        <label>
+                                        <input checked class="with-gap" name="group3" type="radio" />
+                                        <span>норма</span>
+                                        </label>
+                                </div>
+                                <div class=" col s12 l1">
+                                        <label>
+                                        <input class="with-gap" name="group3" type="radio" />
+                                        <span>отклонение</span>
+                                        </label>
+                                </div> 
+                        </div> 
+                    </div>
+
+                    <!--Оценка полового развития с 10 лет М-->
+                    <div class="divider"></div>
+                    <div class="section">
+                            <h6 class="section_name" style="font-weight: bold">Оценка полового развития с 10 лет</h6>
+                            <div class="row" style="margin-bottom:0px">
+                                <div class="col s12 l4">
+                                    <p>Половая формула мальчика <span class="red-text">*</span></p>
+                                </div>
+                                <div class="col s12 l1">
+                                    <div class="input-field" style="margin-bottom: 10px">
+                                        <select>
+                                            <option selected value="1">0</option>
+                                            <option value="2">1</option>
+                                            <option value="3">2</option>
+                                            <option value="4">3</option>
+                                        </select>
+                                        <label>P <span class="red-text">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col s12 l1">
+                                    <div class="input-field" style="margin-bottom: 10px">
+                                        <select>
+                                            <option selected value="1">0</option>
+                                            <option value="2">1</option>
+                                            <option value="3">2</option>
+                                            <option value="4">3</option>
+                                        </select>
+                                        <label>Ax <span class="red-text">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col s12 l1">
+                                    <div class="input-field" style="margin-bottom: 10px">
+                                        <select>
+                                            <option selected value="1">0</option>
+                                            <option value="2">1</option>
+                                            <option value="3">2</option>
+                                            <option value="4">3</option>
+                                        </select>
+                                        <label>Fa <span class="red-text">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>    
+
+                    <!--Оценка полового развития с 10 лет Ж-->
+                    <div class="divider"></div>
+                    <div class="section">
+                            <h6 class="section_name" style="font-weight: bold">Оценка полового развития с 10 лет</h6>
+                            <div class="row" style="margin-bottom:0px">
+                                <div class="col s12 l4">
+                                    <p>Половая формула девочки <span class="red-text">*</span></p>
+                                </div>
+                                <div class="col s12 l1">
+                                    <div class="input-field" style="margin-bottom: 10px">
+                                        <select>
+                                            <option selected value="1">0</option>
+                                            <option value="2">1</option>
+                                            <option value="3">2</option>
+                                            <option value="4">3</option>
+                                        </select>
+                                        <label>P <span class="red-text">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col s12 l1">
+                                    <div class="input-field" style="margin-bottom: 10px">
+                                        <select>
+                                            <option selected value="1">0</option>
+                                            <option value="2">1</option>
+                                            <option value="3">2</option>
+                                            <option value="4">3</option>
+                                        </select>
+                                        <label>Ax <span class="red-text">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col s12 l1">
+                                    <div class="input-field" style="margin-bottom: 10px">
+                                        <select>
+                                            <option selected value="1">0</option>
+                                            <option value="2">1</option>
+                                            <option value="3">2</option>
+                                            <option value="4">3</option>
+                                        </select>
+                                        <label>Ma <span class="red-text">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col s12 l1">
+                                    <div class="input-field" style="margin-bottom: 10px">
+                                        <select>
+                                            <option selected value="1">0</option>
+                                            <option value="2">1</option>
+                                            <option value="3">2</option>
+                                            <option value="4">3</option>
+                                        </select>
+                                        <label>Me <span class="red-text">*</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom:0px; margin-top: 20px">
+                                <div class="col s12 l4">
+                                    <p class="margin_switcher">Менструальная функция</p>
+                                </div>
+                                <div class="col s12 l6">
+                                    <label><input type="checkbox"/><span>Отсутствует</span></label> 
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom:0px">
+                                <div class="col s12 l4">
+                                    <p>Менархе</p>
+                                </div>
+                                <div class="col s1">
+                                    <input style="margin-top: 5px" type="text" class="validate"/>
+                                </div>
+                                <div class="col s1">
+                                    <p>лет</p>
+                                </div>
+                                <div class="col s1">
+                                        <input style="margin-top: 5px" type="text" class="validate"/>
+                                </div>
+                                <div class="col s2">
+                                        <p>месяцев</p>
+                                </div>
+                            </div>
+                    </div>
+
+                    <!--Характеристика-->
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Характеристика</h6>
+                        <div class="row" style="margin-bottom: 0px;">
+                            <div class="col s2 l2">
+                                <p class="margin_switcher">Регулярность</p>
+                            </div>
+                            <div class=" col s12 l3">
+                                    <label>
+                                        <input type="checkbox" />
+                                        <span>регулярные</span>
+                                    </label>
+                            </div>
+                            <div class=" col s12 l3">
+                                    <label>
+                                        <input type="checkbox" />
+                                        <span>нерегулярные</span>
+                                    </label>
+                            </div>   
+                        </div>
+                        <div class="row" style="margin-bottom: 0px;" >
+                            <div class="col s12 l2">
+                                <p class="margin_switcher">Обильность</p>
+                            </div>
+                            <div class=" col s12 l3">
+                                    <label>
+                                            <input type="checkbox" />
+                                            <span>обильные</span>
+                                    </label>
+                            </div>
+                            <div class=" col s12 l3">
+                                    <label>
+                                            <input type="checkbox" />
+                                            <span>умеренные</span>
+                                    </label>
+                            </div>
+                            <div class=" col s12 l3">
+                                    <label>
+                                            <input type="checkbox" />
+                                            <span>скудные</span>
+                                    </label>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0px;" >
+                            <div class="col s12 l2">
+                                <p class="margin_switcher">Болезненность</p>
+                            </div>
+                            <div class=" col s12 l3">
+                                    <label>
+                                            <input type="checkbox" />
+                                            <span>болезненные</span>
+                                    </label>
+                            </div>
+                            <div class="col s12 l3">
+                                    <label>
+                                            <input type="checkbox" />
+                                            <span>безболезненные</span>
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a onclick="M.toast({html: 'Раздел сохранён'})" class="waves-effect waves-light btn-small green">Сохранить</a>
+                        <a href="#export" class="modal-trigger waves-effect waves-light btn-small green">Экспорт</a>
+                        <a href="##" class="modal-trigger waves-effect waves-light btn-small green">Заблокировать</a>
+                    </div>   
+                </form>
+            </div>
+            <div id="2_etap" class="col s12">
+                <form class="col s12">
+                    <!--Секция "ДО ПРОВЕДЕНИЯ ДИСПАНСЕРИЗАЦИИ"-->
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">До проведения диспансеризации</h6>
+                        <div class="row">
+                            <div class="input-field col s12 l2">
+                                <select>
+                                    <option selected value="1">I</option>
+                                    <option value="2">II</option>
+                                    <option value="2">III</option>
+                                    <option value="2">VI</option>
+                                    <option value="2">V</option>
+                                </select>
+                                <label>Группа здоровья <span class="red-text">*</span></label>
+                            </div>
+                            <div class="input-field col s12 l7">
+                                    <select>
+                                        <option selected value="1">I</option>
+                                        <option value="2">II</option>
+                                        <option value="2">III</option>
+                                        <option value="2">VI</option>
+                                        <option value="2">V</option>
+                                    </select>
+                                    <label>Медицинская группа для занятий физической культурой <span class="red-text">*</span></label>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 l3">
+                                    <a href="#diagnosis_before" class="modal-trigger waves-effect waves-light btn-small green">Добавить диагноз</a>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col s12">
+                                <table class="responsive-table striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Диагноз</th>
+                                        <th>МКБ-10</th>
+                                        <th>Диспансерное наблюдение</th>
+                                        <th>Удалить</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Холера</td>
+                                        <td>A00</td>
+                                        <td>Да</td>
+                                        <td><a style="margin-left: 10px;" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Инфекции</td>
+                                        <td>B00</td>
+                                        <td>Нет</td>
+                                        <td><a style="margin-left: 10px;" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>  
+                    </div>
+                    <!--Секция ПО "РЕЗУЛЬТАТАМ ПРОВЕДЕНИЯ ДИСПАНСЕРИЗАЦИИ"-->
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">По результатам проведения настоящего профилактического осмотра</h6>
+                        <div class="row">
+                            <div class="col s12 l3">
+                                    <a href="#diagnosis_after" class="modal-trigger waves-effect waves-light btn-small green">Добавить диагноз</a>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col s12">
+                                <table class="responsive-table striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Диагноз</th>
+                                        <th>МКБ-10</th>
+                                        <th>Установлен впервые</th>
+                                        <th>Диспансерное наблюдение</th>
+                                        <th>Лечение</th>
+                                        <th>Реабилитация/СКЛ</th>
+                                        <th>Дополнительные консультации и исследования</th>
+                                        <th>Удалить</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Холера</td>
+                                        <td>A00</td>
+                                        <td>Да</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><a style="margin-left: 10px;" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Инфекции</td>
+                                        <td>B00</td>
+                                        <td>Нет</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><a style="margin-left: 10px;" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="divider"></div>
+                    <!--Секция "ИНВАЛИДНОСЬ"-->
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Инвалидность</h6>
+                        <div class="row">
+                            <div class="input-field col s12 l4">
+                                <select>
+                                    <option selected value="1">Нет инвалидности</option>
+                                    <option value="2">Приобретенная</option>
+                                    <option value="3">Еще значение</option>
+                                </select>
+                                <label>Инвалидность <span class="red-text">*</span></label>
+                            </div>
+                            <div id="time" class="input-field col s12 l4 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: не ранее<br> даты рождения и не более текущей даты" >
+                                <input required id="ust_date" type="text" class="datepicker validate">
+                                <label for="ust_date">Установлена впервые <span class="red-text">*</span></label>
+                                <span class="helper-text" data-error="Выберите дату"></span>
+                            </div>
+                            <div id="time" class="input-field col s12 l4 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: не ранее даты первичного<br> установления инвалидности и не более текущей даты" >
+                                    <input required id="date_posl_osv" type="text" class="datepicker validate">
+                                    <label for="date_posl_osv">Дата последнего освидетельствования <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Выберите дату"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <a onclick="M.toast({html: 'Раздел сохранён'})" class="waves-effect waves-light btn-small green">Сохранить</a>
+                            <a href="#export" class="modal-trigger waves-effect waves-light btn-small green">Экспорт</a>
+                            <a href="##" class="modal-trigger waves-effect waves-light btn-small green">Заблокировать</a>
+                    </div>         
+                </form> 
+            </div>
+            <div id="3_etap" class="col s12">
+                <form class="col s12">
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Обязательные исследования</h6>
+                        <div class="row">
+                            <div class="col s4 l4">
+                                    <h6 class="margin_switcher">Анализ крови</h6>
+                            </div>
+                            <div class="col s6 l6">
+                                    <label>
+                                            <input style="margin-bottom: 0px" type="checkbox" />
+                                            <span>отказ</span>
+                                    </label> 
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div id="time" class="input-field col s12 l4 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: не ранее даты<br> рождения ребенка и не более текущей даты">
+                                    <input required id="date_napr_doc" type="text" class="datepicker validate">
+                                    <label for="date_napr_doc">Дата <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Выберите дату"></span>
+                                </div>
+                                <div class="input-field col s12 l8">
+                                    <textarea   id="result1" class="materialize-textarea" data-length="4000"></textarea>
+                                    <label for="result1">Результат</label>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col s4 l4">
+                                        <h6 class="margin_switcher">Анализ мочи</h6>
+                                </div>
+                                <div class="col s6 l6">
+                                        <label>
+                                                <input style="margin-bottom: 0px" type="checkbox" />
+                                                <span>отказ</span>
+                                        </label> 
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div id="time" class="input-field col s12 l4 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: не ранее даты<br> рождения ребенка и не более текущей даты">
+                                    <input required id="date_napr_doc" type="text" class="datepicker validate">
+                                    <label for="date_napr_doc">Дата <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Выберите дату"></span>
+                                </div>
+                                <div class="input-field col s12 l8">
+                                        <textarea   id="result2" class="materialize-textarea" data-length="4000"></textarea>
+                                        <label for="result2">Результат</label>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col s4 l4">
+                                        <h6 class="margin_switcher">Анализ крови</h6>
+                                </div>
+                                <div class="col s6 l6">
+                                        <label>
+                                                <input style="margin-bottom: 0px" type="checkbox" />
+                                                <span>отказ</span>
+                                        </label> 
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div id="time" class="input-field col s12 l4 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: не ранее даты<br> рождения ребенка и не более текущей даты">
+                                    <input required id="date_napr_doc" type="text" class="datepicker validate">
+                                    <label for="date_napr_doc">Дата <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Выберите дату"></span>
+                                </div>
+                                <div class="input-field col s12 l8">
+                                        <textarea   id="result3" class="materialize-textarea" data-length="4000"></textarea>
+                                        <label for="result3">Результат</label>
+                                </div>
+                        </div>
+                    </div>
+                    <h6 class="section_name" style="font-weight: bold">Дополнительные исследования</h6>
+                    <div class="row">
+                        <div class="col s12">
+                            <a href="#add_research" class="modal-trigger waves-effect waves-light btn-small green">Добавить исследование</a>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <table class="highlight responsive-table">
+                                <thead>
+                                <tr>
+                                    <th>Исследование</th>
+                                    <th>Дата</th>
+                                    <th>Результат</th>
+                                    <th>Удалить</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>УЗИ сердца</td>
+                                    <td>15.05.2019</td>
+                                    <td>все хорошо</td>
+                                    <td><a style="margin-left: 10px;" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <a onclick="M.toast({html: 'Раздел сохранён'})" class="waves-effect waves-light btn-small green">Сохранить</a>
+                            <a href="#export" class="modal-trigger waves-effect waves-light btn-small green">Экспорт</a>
+                            <a href="##" class="modal-trigger waves-effect waves-light btn-small green">Заблокировать</a>
+                    </div>
+                </form>
+            </div>
+            <div id="5_etap" class="col s12">
+                <form class="col s12">
+                    <div class="divider"></div>
+                    <div class="section">
+                        <h6 class="section_name" style="font-weight: bold">Осмотры врачей</h6>
+                        <div class="row" style="margin-bottom: 0px">
+                            <div class="col s12 l4">
+                                <div class="row">
+                                    <div class="col s7">
+                                        <h6 class="margin_switcher">Ортопед</h6>
+                                    </div>
+                                    <div class="col s5">
+                                        <label>
+                                                <input style="margin-bottom: 0px" type="checkbox" />
+                                                <span>отказ</span>
+                                        </label> 
+                                    </div>
+                                    <div id="time" class="input-field col s12 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: год оформления талона или<br> год оформления талона - 1, но не более текущей даты">
+                                        <input required id="doc4" type="text" class="datepicker validate">
+                                        <label for="doc4">Дата осмотра <span class="red-text">*</span></label>
+                                        <span class="helper-text" data-error="Выберите дату"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 l4">
+                                <div class="row">
+                                    <div class="col s7">
+                                        <h6 class="margin_switcher">Детский врач</h6>
+                                    </div>
+                                    <div class="col s5">
+                                            <label>
+                                                    <input style="margin-bottom: 0px" type="checkbox" />
+                                                    <span>отказ</span>
+                                            </label> 
+                                    </div>
+                                    <div id="time" class="input-field col s12 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: год оформления талона или<br> год оформления талона - 1, но не более текущей даты">
+                                        <input required id="doc5" type="text" class="datepicker validate">
+                                        <label for="doc5">Дата осмотра <span class="red-text">*</span></label>
+                                        <span class="helper-text" data-error="Выберите дату"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 l4">
+                                <div class="row">
+                                    <div class="col s7">
+                                        <h6 class="margin_switcher">Стоматолог</h6>
+                                    </div>
+                                    <div class="col s5">
+                                            <label>
+                                                    <input style="margin-bottom: 0px" type="checkbox" />
+                                                    <span>отказ</span>
+                                            </label> 
+                                    </div>
+                                    <div id="time" class="input-field col s12 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: год оформления талона или<br> год оформления талона - 1, но не более текущей даты">
+                                        <input required id="doc6" type="text" class="datepicker validate">
+                                        <label for="doc6">Дата осмотра <span class="red-text">*</span></label>
+                                        <span class="helper-text" data-error="Выберите дату"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0px;">
+                            <div class="col s12 l4">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="col s7">
+                                        <h6 class="margin_switcher">Педиатр</h6>
+                                    </div>
+                                    <div class="col s5">
+                                            <label>
+                                                    <input style="margin-bottom: 0px" type="checkbox" />
+                                                    <span>отказ</span>
+                                            </label> 
+                                    </div>
+                                    <div id="time" class="input-field col s12 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: год оформления талона или<br> год оформления талона - 1, но не более текущей даты">
+                                        <input required id="doc1" type="text" class="datepicker validate">
+                                        <label for="doc1">Дата осмотра <span class="red-text">*</span></label>
+                                        <span class="helper-text" data-error="Выберите дату"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 l4">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="col s7">
+                                        <h6 class="margin_switcher">Окулист</h6>
+                                    </div>
+                                    <div class="col s5">
+                                            <label>
+                                                    <input style="margin-bottom: 0px" type="checkbox" />
+                                                    <span>отказ</span>
+                                            </label> 
+                                    </div>
+                                    <div id="time" class="input-field col s12 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: год оформления талона или<br> год оформления талона - 1, но не более текущей даты">
+                                        <input required id="doc3" type="text" class="datepicker validate">
+                                        <label for="doc3">Дата осмотра <span class="red-text">*</span></label>
+                                        <span class="helper-text" data-error="Выберите дату"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 l4">
+                                <div class="row" style="margin-bottom: 0px;">
+                                    <div class="col s7">
+                                        <h6 class="margin_switcher">Хирург</h6>
+                                    </div>
+                                    <div class="col s5">
+                                            <label>
+                                                    <input style="margin-bottom: 0px" type="checkbox" />
+                                                    <span>отказ</span>
+                                            </label> 
+                                    </div>
+                                    <div id="time" class="input-field col s12 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: год оформления талона или<br> год оформления талона - 1, но не более текущей даты">
+                                        <input required id="doc4" type="text" class="datepicker validate">
+                                        <label for="doc4">Дата осмотра <span class="red-text">*</span></label>
+                                        <span class="helper-text" data-error="Выберите дату"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="section">
+                    <h6 class="section_name" style="font-weight: bold">Заключение</h6>
+                        <div class="row">
+                            <div class="col s12 l2 input-field">
+                                <select>
+                                    <option value="1" selected>I</option>
+                                    <option value="2">II</option>
+                                    <option value="2">III</option>
+                                    <option value="2">VI</option>
+                                    <option value="2">V</option>
+                                </select>
+                                <label>Группа здоровья <span class="red-text">*</span></label>
+                            </div>
+                            <div class="col s12 l7 input-field">
+                                    <select>
+                                        <option value="1" selected>I</option>
+                                        <option value="2">II</option>
+                                        <option value="2">III</option>
+                                        <option value="2">VI</option>
+                                        <option value="2">V</option>
+                                    </select>
+                                    <label>Медицинская группа для занятия физкультурой <span class="red-text">*</span></label>
+                                </div>
+                            <div id="time" class="input-field col s12 l3 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: не ранее даты<br> начала обследования и не более текущей даты">
+                                    <input required id="date_zakl" type="text" class="datepicker validate">
+                                    <label for="date_zakl">Дата заключения <span class="red-text">*</span></label>
+                                    <span class="helper-text" data-error="Выберите дату"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0px">
+                            <div class="col s12 input-field">
+                                <textarea required id="resp_face" class="materialize-textarea validate" data-length="4000" placeholder="Начните вводить ФИО врача"></textarea>
+                                <label for="resp_face">Лицо, давшее заключение <span class="red-text">*</span></label>
+                                <span class="helper-text" data-error="Укажите ФИО врача"></span>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 0px">
+                            <div class="col s12 input-field">
+                                <textarea id="recomendation" class="materialize-textarea" data-length="4000"></textarea>
+                                <label for="recomendation">Рекомендации <span class="red-text">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                                <a onclick="M.toast({html: 'Раздел сохранён'})" class="waves-effect waves-light btn-small green">Сохранить</a>
+                                <a href="#export" class="modal-trigger waves-effect waves-light btn-small green">Экспорт</a>
+                                <a href="##" class="modal-trigger waves-effect waves-light btn-small green">Заблокировать</a>
+                        </div>
+                    
+                </form>
+            </div>           
+        </div>
+        <!--ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ--> 
+        <div id="right-info" class="col l3 s12 scale-transition scale-out absol">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">Дополнительная информация</span>
+                        <label class="card_label_text">Общие сведения об обследовании</label>
+                        <p class="fs1">Тип карты: профилактический осмотр</p>
+                        <p class="fs1">Статус карты: заполняется</p>
+                        <p class="fs1">Организация, проводящая осмотр: ГАУЗ "Нижнекамская ЦРБ", г. Нижнекамск</p>
+                        <label class="card_label_text">Информация о ребенке</label>
+                        <p class="fs1">
+                            <a href="#!to_patient" class="white-text" >
+                                <span class="tooltipped"data-position="bottom" data-tooltip="Перейти в карту ребенка" style="cursor: pointer">Иванов Иван Иванович, СНИЛС 000-000-000 00</span>
+                            </a><br>
+                            Дата рождения: 01.01.1900<br>
+                            Пол: мужской<br>
+                            Возрастная группа: 11 лет<br>
+                            Категория ребенка: дети-сироты
+                        </p>
+                        <label class="card_label_text">Справочная информация</label>
+                        <p class="fs1">Возраст на момент проведения обследования:<br>___ дней ___ месяцев ___ лет</p>
+                        <p class="fs1"><span class="tooltipped"data-position="bottom" data-tooltip="Индекс массы тела" style="cursor: pointer">ИМТ</span>: 20,45</p>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<!--ФУТЕР-->
+<div class="ias_footer hide-on-med-and-down">
+  
+        <div class="row" style="margin-bottom: 0">
+          <div class="col s6 right" style="text-align: right; margin: auto">
+            <span class="white-text" style="vertical-align: middle">
+              Служба поддержки: 8-800-500-74-78 (по России)<br>
+              Обращение в тех. поддержку:
+              <a class="alink" href="mailto:egisz@rt-eu.ru">
+              egisz@rt-eu.ru
+              </a>  |   
+              <a class="alink" href="https://support.egisz.rosminzdrav.ru" target="_blank">
+                ЕГИСЗ.РФ
+              </a>
+              <br> © 2016-2019 Министерство здравоохранения Российской Федерации
+            </span>
+          </div>
+          <div class="col s6">
+            <span style="vertical-align:middle">
+              <a href="https://support.egisz.rosminzdrav.ru/index.php?/Knowledge/List/Index/66" target="_blank" class="alink">Описание системы</a>
+              <br>
+              <a href="https://support.egisz.rosminzdrav.ru/index.php?/Knowledge/List/Index/70" target="_blank" class="alink">Часто задоваемые вопросы</a>
+              <br>
+              <a href="https://portal.egisz.rosminzdrav.ru/materials" target="_blank" class="alink">Нормативно-правовые документы и руководства пользователя</a>
+            </span>
+          </div>
+        </div>
+  
+</div>
+<!--СКРИПТЫ-->
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+    <script src="js/carta_osm.js"></script>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.js"></script>
+</body>
+</html>
