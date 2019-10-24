@@ -132,7 +132,7 @@
         <div class="nav-wrapper">
           <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <a href="">
-              <div class="alink_logo tooltipped brand-logo right" data-tooltip="Система мониторинга оказания высокотехнологичной медицинской помощи">
+              <div class="alink_logo tooltipped brand-logo right" data-tooltip="Подсистема мониторинга диспансеризации детей-сирот и детей, находящихся в трудной жизненной ситуации">
                       <span>ЕГИСЗ</span>
                       <img class="right logo-egisz" src="img/logo-langing.png">
               </div>
@@ -1080,43 +1080,42 @@
                                         </div>
                                 </div>
                             </div>
-                            <h6 class="blue-grey-text text-darken-1"><b>Отображение</b></h6>
-                            <div class="row">
-                                <div class="input-field col l3 s12">
-                                    <select>
-                                        <option value="1">10</option>
-                                        <option selected value="2">50</option>
-                                        <option value="3">100</option>
-                                        <option value="4">150</option>
-                                    </select>
-                                    <label>Записей на странице</label>
-                                </div>
-                            </div>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
-
-        <div class="row" style="margin-top: 0px;">
-                <div class="col s12">
+        <div class="row">
+                <div class="col">
                     <a class="tooltipped modal-trigger" data-position="bottom" data-tooltip="Выбранные параметры поиска" href="#params"><i class="material-icons small">tune</i></a>
                     <a style="margin-top: -25px" class="waves-effect waves-light btn-small green">Найти</a>
                     <a style="margin-top: -25px" class="waves-effect waves-light btn-small green">Очистить</a>
                     <a style="margin-top: -25px" href="#export" class="modal-trigger waves-effect waves-light btn-small green">Экспорт</a>
-                    <div style="margin: 5px 5px 0 0;" class="right"><b>5 000 карт</b></div>
+                    
                 </div>
-                
+                <div class="col right">
+                    <a class='dropdown-trigger btn green tooltipped' data-position="bottom" data-tooltip="Количество отображаемых записей" href='#' data-target='dropdown1'>150</a>
+                    <ul id='dropdown1' class='dropdown-content'>
+                        <li><a href="#!">10</a></li>
+                        <li><a href="#!">50</a></li>
+                        <li><a href="#!">100</a></li>
+                    </ul>
+                </div>       
         </div>
-        <ul class="pagination center">
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-            <li class="active green"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
-            <li class="waves-effect"><a href="#!">3</a></li>
-            <li>...</li>
-            <li class="waves-effect"><a href="#!">100</a></li>
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-        </ul>
+        <div class="row">
+            <div class="col s12">
+                <ul class="pagination center">
+                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                    <li class="active green"><a href="#!">1</a></li>
+                    <li class="waves-effect"><a href="#!">2</a></li>
+                    <li class="waves-effect"><a href="#!">3</a></li>
+                    <li>...</li>
+                    <li class="waves-effect"><a href="#!">100</a></li>
+                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                    <li class="right"><b>5 000 карт</b></li>
+                </ul>
+            </div>
+        </div>   
         <div class="row">
             <div class="col s12" style="overflow-x: auto">
                 <table id = "search" class="responsive-table">
@@ -1191,8 +1190,8 @@
             <li>...</li>
             <li class="waves-effect"><a href="#!">100</a></li>
             <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            <li class="right"><b>5 000 карт</b></li>
         </ul>
-        
     </div>
 </div>
 
