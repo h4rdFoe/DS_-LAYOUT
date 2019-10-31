@@ -188,13 +188,14 @@
             <div class="row">
                 <div class="input-field col s12 l6">
                     <select>
-                        <option selected value="1">Не выполнено</option>
+                       <option value="" disabled selected>Амбулаторные условия</option>
+                        <option value="1">Значение 1</option>
                         <option value="2">Значение 2</option>
                     </select>
                 </div>
                 <div class="input-field col s12 l6">
                         <select>
-                            <option value="" disabled selected>Выберите причину невыполнения</option>
+                           <option value="" disabled selected>Выберите тип медицинской организации</option>
                             <option value="1">Значение 1</option>
                             <option value="2">Значение 2</option>
                         </select>
@@ -274,13 +275,12 @@
             <h6 class="col">Высокотехнологичная медицинская помощь <span class="red-text">*</span></h6>
             </div>
             <div class="row">
-                <div class=" col switch">
-                    <label>
-                      Не рекомендована
-                      <input type="checkbox">
-                      <span class="lever"></span>
-                      Рекомендована
-                    </label>
+                <div class="input-field col s12 l6">
+                    <select>
+                        <option value="" disabled selected>Не рекомендована</option>
+                        <option value="1">Рекомендована и оказана</option>
+                        <option value="2">Рекомендована и не оказана</option>
+                    </select>
                 </div>
             </div>
     </div>
@@ -891,7 +891,7 @@
                         </div>
                         <div class="row" style="margin-bottom: 0px;">
                                 <div class="col s12 l4">
-                                    <p class="margin_switcher">Эмоционально вегеативная сфера <span class="red-text">*</span></label></p>
+                                    <p class="margin_switcher">Эмоционально-вегеативная сфера <span class="red-text">*</span></label></p>
                                 </div>
                                 <div class=" col s12 l2">
                                         <label>
@@ -1116,7 +1116,7 @@
                                     <option value="2">VI</option>
                                     <option value="2">V</option>
                                 </select>
-                                <label>Группа здоровья <span class="red-text">*</span></label>
+                                <label>Группа состояния здоровья <span class="red-text">*</span></label>
                             </div>
                         </div>
                         <div class="row">
@@ -1236,7 +1236,7 @@
                                     <span class="helper-text" data-error="Выберите дату"></span>
                             </div>
                         </div>
-                        <h6 class="section_name">Заболевания, обуславливающие возникновение инвалидности: <span class="red-text">*</span></h6>
+                        <h6 class="section_name">Заболевания, обусловившие возникновение инвалидности: <span class="red-text">*</span></h6>
                         <div class="chips chips-placeholder chips-autocomplete"></div>
                         <h6 class="section_name" style="margin-top: 20px">Виды нарушений в состоянии здоровья: <span class="red-text">*</span></h6>
                         <div class="chips chips-initial"></div>
@@ -1465,7 +1465,7 @@
                                     <option value="2">VI</option>
                                     <option value="2">V</option>
                                 </select>
-                                <label>Группа здоровья <span class="red-text">*</span></label>
+                                <label>Группа состония здоровья <span class="red-text">*</span></label>
                             </div>
                             <div id="time" class="input-field col s12 l3 tooltipped" data-position="bottom" data-tooltip="Доступный диапазон для выбора: не ранее даты<br> начала обследования и не более текущей даты">
                                     <input required id="date_zakl" type="text" class="datepicker validate">
