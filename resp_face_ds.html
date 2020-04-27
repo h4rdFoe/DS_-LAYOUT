@@ -1,0 +1,264 @@
+<!doctype html>
+
+<html lang="ru">
+
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+  <link type="text/css" rel="stylesheet" href="css/carta_osm.css" media="screen,projection" />
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8">
+  <title>Должностные лица</title>
+  <link rel="icon" type="image/x-icon" href="img/logo-langing.ico">
+</head>
+
+<body>
+  <!-- user_bar -->
+  <ul id='user' class='dropdown-content'>
+    <li><a href="#!"><i class="material-icons">email</i><span class=" right new badge green"
+          data-badge-caption="4"></span>Уведомления</a></li>
+    <li><a href="#!"><i class="material-icons">exit_to_app</i>Выйти</a></li>
+  </ul>
+  <ul id='user-mobile' class='dropdown-content'>
+    <li><a href="#!"><span class="right new badge green" data-badge-caption="4"></span>Уведомления</a></li>
+    <li><a href="#!">Выйти</a></li>
+  </ul>
+
+  <!-- lech_bar -->
+  <ul id='lech' class='dropdown-content'>
+    <li><a href="#!">Карта ребенка</a></li>
+    <li><a href="#!">Поиск карты обследования</a></li>
+    <li><a href="#!">Поиск ребенка</a></li>
+  </ul>
+  <ul id='lech-mobile' class='dropdown-content'>
+    <li><a href="#!">Карта ребенка</a></li>
+    <li><a href="#!">Поиск карты обследования</a></li>
+    <li><a href="#!">Поиск ребенка</a></li>
+  </ul>
+
+  <!-- vvod_bar -->
+  <ul id='vvod' class='dropdown-content'>
+    <li><a href="#!">Должностные лица</a></li>
+  </ul>
+  <ul id='vvod-mobile' class='dropdown-content'>
+    <li><a href="#!">Должностные лица</a></li>
+  </ul>
+
+  <nav class="green" style="margin-bottom: 12px">
+    <div class="nav-wrapper">
+      <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <a href="">
+        <div class="alink_logo tooltipped brand-logo right"
+          data-tooltip="Подсистема мониторинга проведения диспансеризации<br> детей-сирот и детей, находящихся в трудной жизненной ситуации">
+          <span>ЕГИСЗ</span>
+          <img class="right logo-egisz" src="img/logo-langing.png">
+        </div>
+      </a>
+      <ul class="left hide-on-med-and-down">
+        <li><a class="dropdown-trigger" href="#!" data-target="user"><i class="material-icons left">account_box</i>ЦЕНТР
+            Т.П. <i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="vvod">ВВОД ДАННЫХ<i
+              class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-trigger" href="#!" data-target="lech">ЛЕЧЕНИЕ<i
+              class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a href="">МОНИТОРИНГ</a></li>
+        <li><a href=""><i class="material-icons tooltipped" data-tooltip="АДМИНИСТРИРОВАНИЕ">settings</i></a></li>
+        <li><a href="https://portal.egisz.rosminzdrav.ru/forum/" class="tooltipped" data-tooltip="ФОРУМ"
+            target="_blank"><i class="material-icons small">forum</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-nav">
+    <li><a class="dropdown-trigger" href="#!" data-target="user-mobile">ЦЕНТР Т.П.<i
+          class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a class="dropdown-trigger" href="#!" data-target="vvod-mobile">ВВОД ДАННЫХ<i
+          class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a class="dropdown-trigger" href="#!" data-target="lech-mobile">ОБСЛЕДОВАНИЕ<i
+          class="material-icons right">arrow_drop_down</i></a></li>
+    <li><a href="">МОНИТОРИНГ</a></li>
+    <li><a href="">АДМИНИСТРИРОВАНИЕ</a></li>
+    <li><a href="https://portal.egisz.rosminzdrav.ru/forum/" target="_blank">ФОРУМ</a></li>
+  </ul>
+
+  <!-- Окно сообщения -->
+  <div id="message" class="modal">
+    <div class="modal-content">
+      Медицинский работник не найден
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat green text-primary">OK</a>
+    </div>
+  </div>
+
+  <div class="content row mobile_margin">
+    <div id="main-info" class="vmp_content z-depth-2 col l11 s12 push-l0">
+      <h5 style="text-align: center;">Должностные лица</h5>
+      <div class="row">
+        <div class="col s12">
+          <a class="waves-effect waves-light btn-small"><i class="material-icons left">edit</i>Редактировать</a>
+          <a class="waves-effect waves-light btn-small"><i class="material-icons left">refresh</i>Сбросить</a>
+          <a class="waves-effect waves-light btn-small"><i class="material-icons left">add</i>Добавить</a>
+          <a class="waves-effect waves-light btn-small red"><i class="material-icons left">delete</i>Удалить</a>
+          <a class="waves-effect waves-light btn-small green"><i
+              class="material-icons left">playlist_add_check</i>Сохранить</a>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col s12">
+          <table id="search" class="responsive-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>Статус</th>
+                <th>СНИЛС</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Должность</th>
+                <th>Телефон</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><label><input type="checkbox" /><span></span></label></td>
+                <td><a href="#message" class="modal-trigger tooltipped right" data-tooltip="Подробнее"><i
+                      class="material-icons">message</i></a></td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value="Не подтверждено">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input value="15225334455" type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value="Петров" type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value="Петр" type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value="Петрович" type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value="Главный врач" type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input value="88005553535" type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input value="doctor@mail.ru" type="text">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><label><input type="checkbox" /><span></span></label></td>
+                <td></td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value="Не проверено">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input value=" " type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value="Иванова" type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value="Иванна" type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value="Ивановна" type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input disabled value=" " type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input value=" " type="text">
+                  </div>
+                </td>
+                <td>
+                  <div class="input-field">
+                    <input value=" " type="text">
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ias_footer hide-on-med-and-down">
+    <div>
+      <div class="row" style="margin-bottom: 0">
+        <div class="col s6 right" style="text-align: right; margin: auto">
+          <span class="white-text" style="vertical-align: middle">
+            Служба поддержки: 8-800-500-74-78 (по России)<br>
+            Обращение в тех. поддержку:
+            <a class="alink" href="mailto:egisz@rt-eu.ru">
+              egisz@rt-eu.ru
+            </a> |
+            <a class="alink" href="https://support.egisz.rosminzdrav.ru" target="_blank">
+              ЕГИСЗ.РФ
+            </a>
+            <br> © 2016-2020 Министерство здравоохранения Российской Федерации
+          </span>
+        </div>
+        <div class="col s6">
+          <span style="vertical-align:middle">
+            <a href="https://support.egisz.rosminzdrav.ru/index.php?/Knowledge/List/Index/56" target="_blank"
+              class="alink">Описание системы</a>
+            <br>
+            <a href="https://support.egisz.rosminzdrav.ru/index.php?/Knowledge/List/Index/70" target="_blank"
+              class="alink">Часто задаваемые вопросы</a>
+            <br>
+            <a href="https://portal.egisz.rosminzdrav.ru/materials" target="_blank" class="alink">Нормативно-правовые
+              документы и руководства пользователя</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" src="js/materialize.js"></script>
+  <script type="text/javascript" src="js/search.js"></script>
+  <script type="text/javascript" src="js/carta_osm.js"></script>
+</body>
+
+</html>
